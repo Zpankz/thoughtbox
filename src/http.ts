@@ -3,27 +3,23 @@
 import express from "express";
 import cors from "cors";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
-import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import createServer from "./index.js";
 
 const app = express();
 app.use(express.json());
 
 // CORS for local development
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Mcp-Session-Id"],
-  exposedHeaders: ["Mcp-Session-Id"],
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Mcp-Session-Id"],
+    exposedHeaders: ["Mcp-Session-Id"],
+  })
+);
 
-// Create the MCP server with default config
-const mcpServer = createServer({
-  config: {
-    disableThoughtLogging:
-      (process.env.DISABLE_THOUGHT_LOGGING || "").toLowerCase() === "true",
-  },
-});
+// MCP server instance (initialized on startup)
+let mcpServer: Awaited<ReturnType<typeof createServer>>;
 
 // Health check endpoint
 app.get("/health", (req, res) => {
@@ -31,7 +27,8 @@ app.get("/health", (req, res) => {
     status: "ok",
     transport: "streamable-http",
     server: "thoughtbox",
-    version: "1.0.1"
+    version: "1.2.0",
+    persistence: "enabled",
   });
 });
 
@@ -41,9 +38,10 @@ app.get("/mcp", (req, res) => {
     status: "ok",
     server: {
       name: "thoughtbox-server",
-      version: "1.0.0",
+      version: "1.2.0",
       transport: "streamable-http",
       mode: "stateless",
+      persistence: "enabled",
     },
   });
 });
@@ -91,8 +89,44 @@ app.delete("/mcp", (req, res) => {
   });
 });
 
-const port = parseInt(process.env.PORT || "3000");
-app.listen(port, () => {
-  console.log(`Thoughtbox MCP Server running on http://localhost:${port}/mcp`);
-  console.log(`Health check: http://localhost:${port}/health`);
+// Startup function
+async function start() {
+  // Create the MCP server with default config (synchronous factory)
+  mcpServer = createServer({
+    config: {
+      disableThoughtLogging:
+        (process.env.DISABLE_THOUGHT_LOGGING || "").toLowerCase() === "true",
+    },
+  });
+
+  const port = parseInt(process.env.PORT || "1729");
+  const server = app.listen(port, () => {
+    console.log(
+      `Thoughtbox MCP Server running on http://localhost:${port}/mcp`
+    );
+    console.log(`Health check: http://localhost:${port}/health`);
+    console.log(`Data directory: ${process.env.THOUGHTBOX_DATA_DIR || "~/.thoughtbox"}`);
+  });
+
+  // Setup graceful shutdown after server is created
+  setupGracefulShutdown(server);
+}
+
+// Graceful shutdown handlers
+function setupGracefulShutdown(server: ReturnType<typeof app.listen>) {
+  const shutdown = (signal: string) => {
+    console.log(`Received ${signal}, shutting down gracefully...`);
+    server.close(() => {
+      process.exit(0);
+    });
+  };
+
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
+  process.on("SIGINT", () => shutdown("SIGINT"));
+}
+
+// Start the server
+start().catch((error) => {
+  console.error("Fatal error starting server:", error);
+  process.exit(1);
 });
