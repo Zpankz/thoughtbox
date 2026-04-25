@@ -1,0 +1,645 @@
+# Instincts generated from https://github.com/Zpankz/thoughtbox
+# Generated: 2026-04-25T22:03:59.498Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: thoughtbox-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, docs, fix, chore, refactor
+
+## Evidence
+
+- 100 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat: add thick_read tool implementing Grothendieck's Schemes concept, fix(security): prevent shell injection and optimize binary detection
+
+---
+id: thoughtbox-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Commit Length
+
+## Action
+
+Write moderate-length commit messages (~59 characters)
+
+## Evidence
+
+- Average commit message length: 59 chars
+- Based on 100 commits
+
+---
+id: thoughtbox-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: thoughtbox-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: thoughtbox-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: thoughtbox-test-framework
+trigger: "when writing tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Test Framework
+
+## Action
+
+Use vitest as the test framework
+
+## Evidence
+
+- Test framework detected: vitest
+- File pattern: *.test.ts
+
+---
+id: thoughtbox-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: thoughtbox-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~17x per month
+- Files: scripts/*, src/*, src/persistence/*
+
+---
+id: thoughtbox-workflow-refactoring
+trigger: "when refactoring code"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Refactoring
+
+## Action
+
+Follow the refactoring workflow:
+1. Ensure tests pass before refactor
+2. Refactor code structure
+3. Verify tests still pass
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: src/**/*
+
+---
+id: thoughtbox-workflow-feature-development-with-roadmap-phase
+trigger: "when doing feature development with roadmap phase"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Feature Development With Roadmap Phase
+
+## Action
+
+Follow the feature-development-with-roadmap-phase workflow:
+1. Create new files for the feature (e.g. storage, registry, handler, etc.)
+2. Update or create index/registry/handler files to wire in the new feature
+3. Add or update types and schemas as needed
+4. Document the new feature in README or architecture docs
+5. Merge via pull request with 'feat:' or 'refactor:' prefix
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: src/persistence/*.ts, src/discovery-registry.ts, src/tool-descriptions.ts
+
+---
+id: thoughtbox-workflow-documentation-and-architecture-update
+trigger: "when doing documentation and architecture update"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Documentation And Architecture Update
+
+## Action
+
+Follow the documentation-and-architecture-update workflow:
+1. Edit README.md to add/update sections, tables, or diagrams
+2. Edit or add files in src/resources/ or docs/ for architecture content
+3. Update CONTRIBUTING.md if conventions or architecture change
+4. Add or rename images in public/ to match doc references
+5. Commit with 'docs:' prefix
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: README.md, CONTRIBUTING.md, src/resources/server-architecture-content.ts
+
+---
+id: thoughtbox-workflow-agentic-test-infrastructure-update
+trigger: "when doing agentic test infrastructure update"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Agentic Test Infrastructure Update
+
+## Action
+
+Follow the agentic-test-infrastructure-update workflow:
+1. Create or update scripts/agentic-test.ts
+2. Update package.json and package-lock.json to add test scripts or dependencies
+3. Add or update tsconfig for scripts if needed
+4. Commit with 'feat:' or 'fix:' prefix and test-related scope
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: scripts/agentic-test.ts, package.json, package-lock.json
+
+---
+id: thoughtbox-workflow-cleanup-and-removal-of-obsolete-files
+trigger: "when doing cleanup and removal of obsolete files"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Cleanup And Removal Of Obsolete Files
+
+## Action
+
+Follow the cleanup-and-removal-of-obsolete-files workflow:
+1. Identify obsolete files (reports, specs, brainstorms, old configs, unused directories)
+2. Remove files and directories in a single commit or PR
+3. Update .gitignore or related configs if necessary
+4. Commit with 'chore:' prefix and cleanup-related scope
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: AGX_REPORT.md, CONTAINER_USE_INSPIRED_THOUGHTBOX_IDEAS.md, smithery.yaml
+
+---
+id: thoughtbox-workflow-gateway-architecture-transition
+trigger: "when doing gateway architecture transition"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Zpankz/thoughtbox
+---
+
+# Thoughtbox Workflow Gateway Architecture Transition
+
+## Action
+
+Follow the gateway-architecture-transition workflow:
+1. Add or update src/gateway/gateway-handler.ts and related files
+2. Update src/server-factory.ts to remove individual tool registrations and register only the gateway
+3. Update src/tool-descriptions.ts and src/tool-registry.ts to reflect gateway-only pattern
+4. Update documentation to explain gateway usage and progressive disclosure
+5. Remove retry/delay logic now handled by gateway
+6. Commit with 'feat:' or 'refactor:' prefix and gateway-related scope
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/gateway/gateway-handler.ts, src/gateway/index.ts, src/server-factory.ts
+
+---
+id: thoughtbox-instinct-file-naming
+trigger: "When creating or renaming files in the codebase"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct File Naming
+
+## Action
+
+Use camelCase for file names
+
+## Evidence
+
+- Pattern in namingConventions.files
+- Consistent in src/mental-models, src/init, etc.
+
+---
+id: thoughtbox-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Function Naming
+
+## Action
+
+Name functions using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.functions
+- Consistent in src/*
+
+---
+id: thoughtbox-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Class Naming
+
+## Action
+
+Name classes using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.classes
+
+---
+id: thoughtbox-instinct-constant-naming
+trigger: "When defining a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in namingConventions.constants
+
+---
+id: thoughtbox-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle: relative
+- Seen in src/index.ts
+
+---
+id: thoughtbox-instinct-export-style
+trigger: "When exporting modules or functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: thoughtbox-instinct-testing-framework
+trigger: "When writing or updating tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Testing Framework
+
+## Action
+
+Use Vitest as the testing framework
+
+## Evidence
+
+- testing.framework: vitest
+- Pattern in *.test.ts files
+
+---
+id: thoughtbox-instinct-test-file-pattern
+trigger: "When creating a new test file"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Test File Pattern
+
+## Action
+
+Name the file with a .test.ts suffix
+
+## Evidence
+
+- testing.filePattern: *.test.ts
+- Pattern in src/*
+
+---
+id: thoughtbox-instinct-unit-tests
+trigger: "When testing new or existing code"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Unit Tests
+
+## Action
+
+Write unit tests for each function or module
+
+## Evidence
+
+- testing.testTypes includes unit
+- Pattern in *.test.ts files
+
+---
+id: thoughtbox-instinct-commit-format
+trigger: "When making a git commit"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Commit Format
+
+## Action
+
+Format the commit message using the conventional commit style (e.g., feat:, fix:, docs:, chore:, refactor:)
+
+## Evidence
+
+- Pattern in commits.prefixes
+- Seen in commit examples: 'feat: add agentic test infrastructure using Claude Agent SDK'
+
+---
+id: thoughtbox-instinct-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Commit Length
+
+## Action
+
+Keep the commit message concise, around 59 characters on average
+
+## Evidence
+
+- commits.averageLength: 59
+
+---
+id: thoughtbox-instinct-feature-development-phase
+trigger: "When adding a major new capability or architectural layer"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Feature Development Phase
+
+## Action
+
+Create new files, update registries/handlers, add types/schemas, document in README or architecture docs, and merge via PR with 'feat:' or 'refactor:' prefix
+
+## Evidence
+
+- feature-development-with-roadmap-phase workflow
+- Pattern in files: src/persistence/*.ts, README.md
+- Seen in commits: 'feat: add thick_read tool implementing Grothendieck's Schemes concept'
+
+---
+id: thoughtbox-instinct-documentation-update
+trigger: "When codebase or architecture changes and documentation needs to be updated"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Documentation Update
+
+## Action
+
+Edit README.md, update or add architecture content in src/resources/ or docs/, update CONTRIBUTING.md, and commit with 'docs:' prefix
+
+## Evidence
+
+- documentation-and-architecture-update workflow
+- Pattern in files: README.md, src/resources/server-architecture-content.ts
+- Seen in commits: 'docs: add contributing guide with commit conventions'
+
+---
+id: thoughtbox-instinct-agentic-test-update
+trigger: "When adding or updating agentic/behavioral tests for tools"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Agentic Test Update
+
+## Action
+
+Create or update scripts/agentic-test.ts, update package.json and package-lock.json, update tsconfig if needed, and commit with 'feat:' or 'fix:' prefix and test-related scope
+
+## Evidence
+
+- agentic-test-infrastructure-update workflow
+- Pattern in files: scripts/agentic-test.ts
+- Seen in commits: 'feat: add agentic test infrastructure using Claude Agent SDK'
+
+---
+id: thoughtbox-instinct-cleanup-obsolete-files
+trigger: "When legacy, deprecated, or unused files/directories are identified"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Cleanup Obsolete Files
+
+## Action
+
+Remove obsolete files/directories, update .gitignore if needed, and commit with 'chore:' prefix and cleanup-related scope
+
+## Evidence
+
+- cleanup-and-removal-of-obsolete-files workflow
+- Pattern in files: AGX_REPORT.md, .claude/skills/**
+- Seen in commits: 'chore: Add tsconfig for scripts directory'
+
+---
+id: thoughtbox-instinct-gateway-architecture-transition
+trigger: "When centralizing tool access and enforcing progressive disclosure via a single gateway handler"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: Zpankz/thoughtbox
+---
+
+# Thoughtbox Instinct Gateway Architecture Transition
+
+## Action
+
+Update gateway handler and related files, remove individual tool registrations, update documentation, and commit with 'feat:' or 'refactor:' prefix and gateway-related scope
+
+## Evidence
+
+- gateway-architecture-transition workflow
+- Pattern in files: src/gateway/gateway-handler.ts, src/server-factory.ts
+- Seen in commits: 'refactor(server): Consolidate server factory and handlers'
+
